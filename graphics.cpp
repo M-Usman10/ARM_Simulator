@@ -14,22 +14,6 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 using namespace std;
-template<class T, class T2>
-class my_pair
-{
-public:
-	T first;
-	T2 second;
-	my_pair(T f, T2 s)
-	{
-		first = f;
-		second = s;
-	}
-	bool operator==(const my_pair<T, T2> & p) const
-	{
-		return first == p.first;
-	}
-};
 void SetCanvasSize(int width, int height)
 {
 	glMatrixMode(GL_PROJECTION);
