@@ -22,16 +22,19 @@ void SetCanvasSize(int width, int height)
 	glMatrixMode( GL_MODELVIEW);
 	glLoadIdentity();
 }
-int x,y;
+int x, y;
 Board B;
 void Display()
 {
 	glClearColor(1, 1, 1, 0);
 	glClear(GL_COLOR_BUFFER_BIT); //Update the colors
-    B.draw_board();
-    DrawString(1100,660,"Write Program",colors[BLUE]);
-	DrawString(0,660,to_string(x).c_str(),colors[BLUE]);
-    DrawString(100,660,to_string(y).c_str(),colors[BLUE]);
+	B.draw_board();
+	DrawString(1100, 660, "Write Program", colors[BLUE]);
+	DrawString(920, 660, "Start", colors[BLUE]);
+	DrawString(920, 640,to_string(B.counter) , colors[BLUE]);
+	DrawString(1000, 660, "Restart", colors[BLUE]);
+	DrawString(0, 660, to_string(x).c_str(), colors[BLUE]);
+	DrawString(100, 660, to_string(y).c_str(), colors[BLUE]);
 	glutSwapBuffers();
 
 }
@@ -85,30 +88,70 @@ void NonPrintableKeys(int key, int x, int y)
  * */
 void PrintableKeys(unsigned char key, int x, int y)
 {
-	if (key=='c')
+	if (key == 'c')
 	{
 		B.P1.col++;
-		cout<<B.P1.col<<endl;
+		cout << B.P1.col << endl;
 	}
 
 }
-void MouseMoved(int x, int y) {
+void MouseMoved(int x, int y)
+{
 
-	::x=x;
-	::y=H-y;
-    glutPostRedisplay();
+	::x = x;
+	::y = H - y;
+	glutPostRedisplay();
 }
+void start()
+{
+	ifstream ifile("code.txt");
+	int index=0;
+	while (ifile)
+	{
+		string str;
+        getline(ifile,str);
+        if(ifile)
+        {
+            B.instructoins.push_back(str);
+        }
+	}
+}
+void Restart()
+{
+	B.instructoins.clear();
+	ifstream ifile("code.txt");
+	int index=0;
+	while (ifile)
+	{
+		string str;
+        getline(ifile,str);
+        if(ifile)
+        {
+            B.instructoins.push_back(str);
+        }
+	}
 
+}
 void MouseClicked(int button, int state, int x, int y)
 {
 
-	if (button == GLUT_LEFT_BUTTON && state==GLUT_DOWN) // dealing only with left button
+	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) // dealing only with left button
 	{
-         if(x>1100 && x<1250 && H-y>660)
-         {
-            if (fork()==0)
-            	execl("SB2/sublime_text","sublime_text","code.txt",NULL);
-         }
+		if (x > 1100 && x < 1250 && H - y > 660)
+		{
+			if (fork() == 0)
+				execl("SB2/sublime_text", "sublime_text", "code.txt", NULL);
+		}
+		else if (x > 920 && x < 968 && H - y > 660 && started == false)
+		{
+			started=true;
+			start();
+		}
+		else if (x > 1000 && x < 1070 && H - y > 660)
+		{
+			Restart();
+		}
+
 		//Passsing the current position of mouse clicked to start Single player or multiplayer game
 	}
 	else if (button == GLUT_RIGHT_BUTTON) // dealing with right button
@@ -116,7 +159,6 @@ void MouseClicked(int button, int state, int x, int y)
 
 	}
 //glutPostRedisplay();
-
 }
 /*
  * This function is called after every 1000.0/FPS milliseconds
@@ -137,10 +179,10 @@ void Timer(int m)
 int main(int argc, char*argv[])
 {
 	glutInit(&argc, argv); // initialize the graphics library...
-    int width=1300,height=680;
+	int width = 1300, height = 680;
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA); // we will be using color display mode
 	glutInitWindowPosition(50, 50); // set the initial position of our window
-	glutInitWindowSize(width,height); // set the size of our window
+	glutInitWindowSize(width, height); // set the size of our window
 	glutCreateWindow("ARM_Simulation"); // set the title of our game window
 	SetCanvasSize(width, height); // set the number of pixels...
 	glutDisplayFunc(Display); // tell library which function to call for drawing Canvas.
@@ -148,7 +190,7 @@ int main(int argc, char*argv[])
 	glutKeyboardFunc(PrintableKeys); // tell library which function to call for printable ASCII characters
 	glutMouseFunc(MouseClicked);
 	glutTimerFunc(1000.0 / FPS, Timer, 0);
-    glutPassiveMotionFunc(MouseMoved); // Mouse
+	glutPassiveMotionFunc(MouseMoved); // Mouse
 	glutMainLoop();
 	return 1;
 }
