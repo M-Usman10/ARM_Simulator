@@ -47,14 +47,12 @@ public:
 		sh_alu.second.y = 407;
 		p1_alu.second.x = 285;
 		p1_alu.second.y = 453;
-
 		reg_p2_s2.second.x = 440;
 		reg_p2_s2.second.y = 170;
 		reg_p2_s1.second.x = 440;
 		reg_p2_s1.second.y = 230;
 		reg_pc.second.x = 438;
 		reg_pc.second.y = 240;
-
 		ext2_p2.second.x = 465;
 		ext2_p2.second.y = 45;
 		ext1_sh.second.x = 314;
@@ -149,100 +147,100 @@ public:
 	void Draw()
 	{
 		DrawRoundRect(p1_alu.second.x, p1_alu.second.y,
-				p1_alu.first.length() * 13, 21, colors[LIGHT_BLUE], 5);
+				p1_alu.first.length() *7, 16, colors[LIGHT_BLUE], 5);
 		DrawRoundRect(sh_alu.second.x, sh_alu.second.y,
-				sh_alu.first.length() * 13, 21, colors[LIGHT_BLUE], 5);
+				sh_alu.first.length() *7, 16, colors[LIGHT_BLUE], 5);
 		DrawRoundRect(alu_pc_mux.second.x, alu_pc_mux.second.y,
-				alu_pc_mux.first.length() * 13, 21, colors[LIGHT_BLUE], 5);
+				alu_pc_mux.first.length() *7, 16, colors[LIGHT_BLUE], 5);
 
-		DrawRoundRect(p1_p2.second.x, p1_p2.second.y, p1_p2.first.length() * 13,
-				21, colors[LIGHT_BLUE], 5);
+		DrawRoundRect(p1_p2.second.x, p1_p2.second.y, p1_p2.first.length() *7,
+				16, colors[LIGHT_BLUE], 5);
 
 		DrawRoundRect(p1_ext1.second.x, p1_ext1.second.y,
-				p1_ext1.first.length() * 13, 21, colors[LIGHT_BLUE], 5);
+				p1_ext1.first.length() *7, 16, colors[LIGHT_BLUE], 5);
 		DrawRoundRect(p1_ext2.second.x, p1_ext2.second.y,
-				p1_ext2.first.length() * 13, 21, colors[LIGHT_BLUE], 5);
+				p1_ext2.first.length() *7, 16, colors[LIGHT_BLUE], 5);
 		DrawRoundRect(ext1_sh.second.x, ext1_sh.second.y,
-				ext1_sh.first.length() * 13, 21, colors[LIGHT_BLUE], 5);
+				ext1_sh.first.length() *7, 16, colors[LIGHT_BLUE], 5);
 		DrawRoundRect(ext2_p2.second.x, ext2_p2.second.y,
-				ext2_p2.first.length() * 13, 21, colors[LIGHT_BLUE], 5);
+				ext2_p2.first.length() *7, 16, colors[LIGHT_BLUE], 5);
 
 		DrawRoundRect(reg_p2_s1.second.x, reg_p2_s1.second.y,
-				reg_p2_s1.first.length() * 13, 21, colors[LIGHT_BLUE], 5);
+				reg_p2_s1.first.length() *7, 16, colors[LIGHT_BLUE], 5);
 
 		DrawRoundRect(reg_pc.second.x, reg_pc.second.y,
-				reg_pc.first.length() * 13, 21, colors[LIGHT_BLUE], 5);
+				reg_pc.first.length() *7, 16, colors[LIGHT_BLUE], 5);
 
 		DrawRoundRect(reg_p2_s2.second.x, reg_p2_s2.second.y,
-				reg_p2_s2.first.length() * 13, 21, colors[LIGHT_BLUE], 5);
+				reg_p2_s2.first.length() *7, 16, colors[LIGHT_BLUE], 5);
 		DrawRoundRect(p1_ctrl.second.x, p1_ctrl.second.y,
-				p1_ctrl.first.length() * 13, 21, colors[LIGHT_BLUE], 5);
+				p1_ctrl.first.length() *7, 16, colors[LIGHT_BLUE], 5);
 
 		DrawRoundRect(ctrl_mux.second.x, ctrl_mux.second.y,
-				ctrl_mux.first.length() * 13, 21, colors[LIGHT_BLUE], 5);
+				ctrl_mux.first.length() *7, 16, colors[LIGHT_BLUE], 5);
 		DrawRoundRect(_0_mux.second.x, _0_mux.second.y,
-				_0_mux.first.length() * 13, 21, colors[LIGHT_BLUE], 5);
+				_0_mux.first.length() *7, 16, colors[LIGHT_BLUE], 5);
 
 		DrawRoundRect(mux_p2.second.x, mux_p2.second.y,
-				mux_p2.first.length() * 13, 21, colors[LIGHT_BLUE], 5);
+				mux_p2.first.length() *7, 16, colors[LIGHT_BLUE], 5);
 		DrawRoundRect(ctrl_p1.second.x, ctrl_p1.second.y,
-				ctrl_p1.first.length() * 13, 21, colors[LIGHT_BLUE], 5);
-		DrawRoundRect(p1.second.x, p1.second.y, p1.first.length() * 13, 21,
+				ctrl_p1.first.length() *7, 16, colors[LIGHT_BLUE], 5);
+		DrawRoundRect(p1.second.x, p1.second.y, p1.first.length() *7, 16,
 				colors[LIGHT_BLUE], 5);
 		DrawRoundRect(p1_mux.second.x, p1_mux.second.y,
-				p1_mux.first.length() * 13, 21, colors[LIGHT_BLUE], 5);
+				p1_mux.first.length() * 7, 16, colors[LIGHT_BLUE], 5);
 		DrawRoundRect(p1_mux2.second.x, p1_mux2.second.y,
-				p1_mux2.first.length() * 13, 21, colors[LIGHT_BLUE], 5);
+				p1_mux2.first.length() * 7, 16, colors[LIGHT_BLUE], 5);
 		DrawRoundRect(p1_ext.second.x, p1_ext.second.y,
-				p1_ext.first.length() * 13, 21, colors[LIGHT_BLUE], 5);
+				p1_ext.first.length() * 6, 16, colors[LIGHT_BLUE], 5);
 		DrawRoundRect(p1_reg.second.x, p1_reg.second.y,
-				p1_reg.first.length() * 13, 21, colors[LIGHT_BLUE], 5);
+				p1_reg.first.length() * 7, 16, colors[LIGHT_BLUE], 5);
 
-		DrawString(p1_alu.second.x, p1_alu.second.y, p1_alu.first,
+		DrawStringsmall(p1_alu.second.x+2, p1_alu.second.y+2, p1_alu.first,
 				colors[BLACK]);
-		DrawString(sh_alu.second.x, sh_alu.second.y, sh_alu.first,
+		DrawStringsmall(sh_alu.second.x+2, sh_alu.second.y+2, sh_alu.first,
 				colors[BLACK]);
-		DrawString(alu_pc_mux.second.x, alu_pc_mux.second.y, alu_pc_mux.first,
+		DrawStringsmall(alu_pc_mux.second.x+2, alu_pc_mux.second.y+2, alu_pc_mux.first,
 				colors[BLACK]);
-		DrawString(p1_p2.second.x, p1_p2.second.y, p1_p2.first,
+		DrawStringsmall(p1_p2.second.x+2, p1_p2.second.y+2, p1_p2.first,
 				colors[BLACK]);
-		DrawString(p1_ext1.second.x, p1_ext1.second.y, p1_ext1.first,
+		DrawStringsmall(p1_ext1.second.x+2, p1_ext1.second.y+2, p1_ext1.first,
 				colors[BLACK]);
-		DrawString(p1_ext2.second.x, p1_ext2.second.y, p1_ext2.first,
+		DrawStringsmall(p1_ext2.second.x+2, p1_ext2.second.y+2, p1_ext2.first,
 				colors[BLACK]);
-		DrawString(ext1_sh.second.x, ext1_sh.second.y, ext1_sh.first,
+		DrawStringsmall(ext1_sh.second.x+2, ext1_sh.second.y+2, ext1_sh.first,
 				colors[BLACK]);
-		DrawString(ext2_p2.second.x, ext2_p2.second.y, ext2_p2.first,
-				colors[BLACK]);
-
-		DrawString(reg_p2_s1.second.x, reg_p2_s1.second.y, reg_p2_s1.first,
+		DrawStringsmall(ext2_p2.second.x+2, ext2_p2.second.y+2, ext2_p2.first,
 				colors[BLACK]);
 
-		DrawString(reg_pc.second.x, reg_pc.second.y, reg_pc.first,
+		DrawStringsmall(reg_p2_s1.second.x+2, reg_p2_s1.second.y+2, reg_p2_s1.first,
 				colors[BLACK]);
 
-		DrawString(reg_p2_s2.second.x, reg_p2_s2.second.y, reg_p2_s2.first,
-				colors[BLACK]);
-		DrawString(p1_ctrl.second.x, p1_ctrl.second.y, p1_ctrl.first,
+		DrawStringsmall(reg_pc.second.x+2, reg_pc.second.y+2, reg_pc.first,
 				colors[BLACK]);
 
-		DrawString(ctrl_mux.second.x, ctrl_mux.second.y, ctrl_mux.first,
+		DrawStringsmall(reg_p2_s2.second.x+2, reg_p2_s2.second.y+2, reg_p2_s2.first,
 				colors[BLACK]);
-		DrawString(_0_mux.second.x, _0_mux.second.y, _0_mux.first,
+		DrawStringsmall(p1_ctrl.second.x+2, p1_ctrl.second.y+2, p1_ctrl.first,
 				colors[BLACK]);
 
-		DrawString(mux_p2.second.x, mux_p2.second.y, mux_p2.first,
+		DrawStringsmall(ctrl_mux.second.x+2, ctrl_mux.second.y+2, ctrl_mux.first,
 				colors[BLACK]);
-		DrawString(ctrl_p1.second.x, ctrl_p1.second.y, ctrl_p1.first,
+		DrawStringsmall(_0_mux.second.x+2, _0_mux.second.y+2, _0_mux.first,
 				colors[BLACK]);
-		DrawString(p1.second.x, p1.second.y, p1.first, colors[BLACK]);
-		DrawString(p1_mux.second.x, p1_mux.second.y, p1_mux.first,
+
+		DrawStringsmall(mux_p2.second.x+2, mux_p2.second.y+2, mux_p2.first,
 				colors[BLACK]);
-		DrawString(p1_mux2.second.x, p1_mux2.second.y, p1_mux2.first,
+		DrawStringsmall(ctrl_p1.second.x+2, ctrl_p1.second.y+2, ctrl_p1.first,
 				colors[BLACK]);
-		DrawString(p1_ext.second.x, p1_ext.second.y, p1_ext.first,
+		DrawStringsmall(p1.second.x+2, p1.second.y+2, p1.first, colors[BLACK]);
+		DrawStringsmall(p1_mux.second.x+2, p1_mux.second.y+2, p1_mux.first,
 				colors[BLACK]);
-		DrawString(p1_reg.second.x, p1_reg.second.y, p1_reg.first,
+		DrawStringsmall(p1_mux2.second.x+2, p1_mux2.second.y+2, p1_mux2.first,
+				colors[BLACK]);
+		DrawStringsmall(p1_ext.second.x+2, p1_ext.second.y+2, p1_ext.first,
+				colors[BLACK]);
+		DrawStringsmall(p1_reg.second.x+2, p1_reg.second.y+2, p1_reg.first,
 				colors[BLACK]);
 	}
 	void move()

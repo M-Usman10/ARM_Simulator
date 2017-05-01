@@ -57,29 +57,29 @@ public:
 	void Draw()
 	{
 		DrawRoundRect(pc_mem.second.x, pc_mem.second.y,
-				pc_mem.first.length() * 13, 23, colors[LIGHT_BLUE], 5);
+				pc_mem.first.length() * 13, 18, colors[LIGHT_BLUE], 5);
 		DrawRoundRect(mem_p1.second.x, mem_p1.second.y,
-				mem_p1.first.length() * 5, 23, colors[LIGHT_BLUE], 5);
+				mem_p1.first.length() * 6, 18, colors[LIGHT_BLUE], 5);
 		DrawRoundRect(pc_alu.second.x, pc_alu.second.y,
-				pc_alu.first.length() * 13, 23, colors[LIGHT_BLUE], 5);
+				pc_alu.first.length() * 13, 18, colors[LIGHT_BLUE], 5);
 		DrawRoundRect(_4_alu.second.x, _4_alu.second.y,
-				_4_alu.first.length() * 13, 23, colors[LIGHT_BLUE], 5);
+				_4_alu.first.length() * 13, 18, colors[LIGHT_BLUE], 5);
 		DrawRoundRect(alu_p1.second.x, alu_p1.second.y,
-				alu_p1.first.length() * 13, 23, colors[LIGHT_BLUE], 5);
+				alu_p1.first.length() * 13, 18, colors[LIGHT_BLUE], 5);
 		DrawRoundRect(alu_mux.second.x, alu_mux.second.y,
-				alu_mux.first.length() * 13, 23, colors[LIGHT_BLUE], 5);
+				alu_mux.first.length() * 13, 18, colors[LIGHT_BLUE], 5);
 
-		DrawString(pc_mem.second.x + 1.5, pc_mem.second.y + 4,
+		DrawStringsmall(pc_mem.second.x+2 + 1.5, pc_mem.second.y + 4,
 				pc_mem.first, colors[BLACK]);
-		DrawStringsmall(mem_p1.second.x + 1.5, mem_p1.second.y + 4,
+		DrawStringsmall(mem_p1.second.x+2 + 1.5, mem_p1.second.y + 4,
 				mem_p1.first, colors[BLACK]);
-		DrawString(pc_alu.second.x + 1.5, pc_alu.second.y + 4,
+		DrawStringsmall(pc_alu.second.x+2 + 1.5, pc_alu.second.y + 4,
 				pc_alu.first, colors[BLACK]);
-		DrawString(_4_alu.second.x + 1.5, _4_alu.second.y + 4,
+		DrawStringsmall(_4_alu.second.x+2 + 1.5, _4_alu.second.y + 4,
 				_4_alu.first, colors[BLACK]);
-		DrawString(alu_p1.second.x + 1.5, alu_p1.second.y + 4,
+		DrawStringsmall(alu_p1.second.x+2 + 1.5, alu_p1.second.y + 4,
 				alu_p1.first, colors[BLACK]);
-		DrawString(alu_mux.second.x + 1.5, alu_mux.second.y + 4,
+		DrawStringsmall(alu_mux.second.x+2 + 1.5, alu_mux.second.y + 4,
 				alu_mux.first, colors[BLACK]);
 
 	}

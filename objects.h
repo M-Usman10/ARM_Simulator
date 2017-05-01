@@ -12,6 +12,42 @@ using namespace std;
 int read_text = 0;
 bool started = false;
 vector<string> str;
+char get_dest(const string & str)
+{
+	if (str == "r0")
+		return '0';
+	if (str == "r1")
+		return '1';
+	if (str == "r2")
+		return '2';
+	if (str == "r3")
+		return '3';
+	if (str == "r4")
+		return '4';
+	if (str == "r5")
+		return '5';
+	if (str == "r6")
+		return '6';
+	if (str == "r7")
+		return '7';
+	if (str == "r8")
+		return '8';
+	if (str == "r9")
+		return '9';
+	if (str == "r10")
+		return 'A';
+	if (str == "r11")
+		return 'B';
+	if (str == "r12")
+		return 'C';
+	if (str == "sp")
+		return 'D';
+	if (str == "lr")
+		return 'E';
+	if (str == "pc")
+		return 'F';
+	return 'i';
+}
 class ALU_INPUT
 {
 	int src1, src2;
@@ -79,6 +115,77 @@ public:
 		this->x = x;
 		this->y = y;
 		this->color = color;
+	}
+	string generate_ct(string & str)
+	{
+        string res;
+        //if(str.substr(0,3)=="E28")
+        return res;
+	}
+	string get(const string & str)
+	{
+		string res = "";
+		if (str.substr(0, 3) == "ADD")
+		{
+			if (str[10] > 47 && str[10] < 59)
+				res = "E28";
+			else
+				res = "E08";
+			res.push_back(get_dest(str.substr(4, 2)));
+		}
+		else if (str.substr(0, 3) == "SUB")
+		{
+			if (str[10] > 47 && str[10] < 59)
+				res = "E24";
+			else
+				res = "E04";
+			res.push_back(get_dest(str.substr(4, 2)));
+		}
+		else if (str.substr(0, 3) == "MOV")
+		{
+			if (str[10] > 47 && str[10] < 59)
+				res = "E3A";
+			else
+				res = "E1A";
+			res.push_back(get_dest(str.substr(4, 2)));
+		}
+		else if (str.substr(0, 3) == "CMP")
+		{
+			res ="CA00";
+		}
+		else if (str.substr(0, 3) == "AND")
+		{
+			if (str[10] > 47 && str[10] < 59)
+            res="A100";
+			else
+				"A000";
+		}
+		else if (str.substr(0, 2) == "OR")
+		{
+			if (str[10] > 47 && str[10] < 59)
+		            res="D100";
+					else
+						"D000";
+		}
+		else if (str.substr(0, 3) == "LDR")
+		{
+			res = "E58";
+			res.push_back(get_dest(str.substr(4, 2)));
+		}
+		else if (str.substr(0, 3) == "STR")
+		{
+			res = "E59";
+			res.push_back(get_dest(str.substr(4, 2)));
+		}
+		else if (str.substr(0, 3) == "BEQ")
+		{
+             res="BE00";
+		}
+		else if (str.substr(0, 2) == "BL")
+		{
+			res = "BA00";
+		}
+		return res;
 	}
 	void draw_unit()
 	{
@@ -154,6 +261,41 @@ public:
 		sp = 13 + 10;
 		lr = 14 + 10;
 		pc = 15 + 10;
+	}
+	string get(const string & r_no)
+	{
+		if (r_no == "r0")
+			return to_string(r0);
+		if (r_no == "r1")
+			return to_string(r1);
+		if (r_no == "r2")
+			return to_string(r2);
+		if (r_no == "r3")
+			return to_string(r3);
+		if (r_no == "r4")
+			return to_string(r4);
+		if (r_no == "r5")
+			return to_string(r5);
+		if (r_no == "r6")
+			return to_string(r6);
+		if (r_no == "r7")
+			return to_string(r7);
+		if (r_no == "r8")
+			return to_string(r8);
+		if (r_no == "r9")
+			return to_string(r9);
+		if (r_no == "r10")
+			return to_string(r10);
+		if (r_no == "r11")
+			return to_string(r11);
+		if (r_no == "r12")
+			return to_string(r12);
+		if (r_no == "sp")
+			return to_string(sp);
+		if (r_no == "lr")
+			return to_string(lr);
+		return "Inv";
+
 	}
 	void draw_unit()
 	{
@@ -371,42 +513,6 @@ public:
 	{
 
 	}
-	void ins_s1()
-	{
-		counter++;
-		counter %= 781;
-		switch (counter)
-		{
-		case 1:
-			Sta1.pc_mem.first = to_string(p.index);
-			Sta1._4_alu.first = "4";
-			Sta1.pc_alu.first = to_string(p.index);
-			break;
-		case 130:
-			Sta1.mem_p1.first = instructoins[p.index/4];
-			break;
-		case 190:
-			Sta1.alu_mux.first = to_string(p.index + 4);
-			Sta1.alu_p1.first = to_string(p.index + 4);
-			break;
-		case 780:
-			p.index += 4;
-			p.index %= instructoins.size()*4;
-			Sta1.ReInit();
-		}
-	}
-	void ins_s2()
-	{
-		switch (counter)
-		{
-		case 779:
-			Sta2.ReInit();
-			Sta2.p1_alu.first = Sta1.alu_p1.first;
-
-			break;
-		}
-
-	}
 	void draw_board()
 	{
 		if (started)
@@ -602,6 +708,121 @@ public:
 			Sta4.move();
 			Sta5.move();
 		}
+	}
+	void ins_s1()
+	{
+		counter++;
+		counter %= 781;
+		switch (counter)
+		{
+		case 1:
+			Sta1.pc_mem.first = to_string(p.index);
+			Sta1._4_alu.first = "4";
+			Sta1.pc_alu.first = to_string(p.index);
+			break;
+		case 130:
+			Sta1.mem_p1.first = instructoins[p.index / 4];
+			break;
+		case 190:
+			Sta1.alu_mux.first = to_string(p.index + 4);
+			Sta1.alu_p1.first = to_string(p.index + 4);
+			break;
+		case 780:
+			p.index += 4;
+			p.index %= instructoins.size() * 4;
+			Sta1.ReInit();
+		}
+	}
+	void ins_s2()
+	{
+		switch (counter)
+		{
+		case 779:
+			Sta2.ReInit();
+			Sta2.p1_ctrl.first = c.get(Sta1.mem_p1.first);
+			Sta2.p1_alu.first = Sta1.alu_p1.first;
+			if (Sta1.mem_p1.first.substr(0, 3) == "AND"
+					|| Sta1.mem_p1.first.substr(0, 2) == "OR"
+					|| Sta1.mem_p1.first.substr(0, 3) == "ADD"
+					|| Sta1.mem_p1.first.substr(0, 3) == "SUB")
+			{
+				Sta2.p1_reg.first = Sta1.mem_p1.first.substr(
+						Sta1.mem_p1.first.find(",") + 1,
+						Sta1.mem_p1.first.find(",",
+								Sta1.mem_p1.first.find(",") + 2)
+								- Sta1.mem_p1.first.find(",") - 1);
+				Sta2.p1_mux.first = Sta1.mem_p1.first.substr(
+						Sta1.mem_p1.first.find(" ") + 1,
+						Sta1.mem_p1.first.find(",")
+								- Sta1.mem_p1.first.find(" ") - 1);
+				Sta2.p1_mux2.first = Sta1.mem_p1.first.substr(
+						Sta1.mem_p1.first.find(",",
+								Sta1.mem_p1.first.find(",") + 1) + 1,
+						Sta1.mem_p1.first.length() - 10);
+			}
+			else if (Sta1.mem_p1.first.substr(0, 3) == "MOV"
+					|| Sta1.mem_p1.first.substr(0, 3) == "CMP")
+			{
+				Sta2.p1_reg.first = Sta1.mem_p1.first.substr(
+						Sta1.mem_p1.first.find(",") + 1,
+						Sta1.mem_p1.first.length() - 7);
+				Sta2.p1_mux.first = Sta1.mem_p1.first.substr(
+						Sta1.mem_p1.first.find(" ") + 1,
+						Sta1.mem_p1.first.find(",")
+								- Sta1.mem_p1.first.find(" ") - 1);
+			}
+			else if (Sta1.mem_p1.first.substr(0, 1) == "B"
+					|| Sta1.mem_p1.first.substr(0, 2) == "BL")
+			{
+				if (Sta1.mem_p1.first.substr(0, 2) == "BL")
+				{
+					Sta2.p1_mux.first = "lr";
+					Sta2.p1_ext.first = Sta1.mem_p1.first.substr(
+							Sta1.mem_p1.first.find(" ") + 1,
+							Sta1.mem_p1.first.length() - 3);
+				}
+				else
+					Sta2.p1_ext.first = Sta1.mem_p1.first.substr(
+							Sta1.mem_p1.first.find(" ") + 1,
+							Sta1.mem_p1.first.length() - 2);
+			}
+			else
+			{
+				Sta2.p1_reg.first = Sta1.mem_p1.first.substr(
+						Sta1.mem_p1.first.find(",") + 2,
+						Sta1.mem_p1.first.find(",",
+								Sta1.mem_p1.first.find(",") + 2)
+								- Sta1.mem_p1.first.find(",") - 2);
+				Sta2.p1_mux.first = Sta1.mem_p1.first.substr(
+						Sta1.mem_p1.first.find(" ") + 1,
+						Sta1.mem_p1.first.find(",")
+								- Sta1.mem_p1.first.find(" ") - 1);
+				Sta2.p1_ext1.first = Sta1.mem_p1.first.substr(12,
+						Sta1.mem_p1.first.length() - 13);
+			}
+
+			break;
+		case 140:
+			Sta2.ext1_sh.first = Sta2.p1_ext.first;
+			if (Sta2.p1_reg.first.length())
+			{
+				Sta2.reg_p2_s1.first = r.get(Sta2.p1_reg.first);
+				Sta2.reg_pc.first = r.get(Sta2.p1_reg.first);
+			}
+			break;
+		case 280:
+			if (Sta2.p1_ext.first.length())
+				Sta2.sh_alu.first = to_string(stoi(Sta2.p1_ext.first) * 4);
+			else if (Sta2.p1_ext1.first.length())
+				Sta2.ext2_p2.first = Sta2.p1_ext1.first;
+			break;
+		case 320:
+			if (Sta2.p1_ext.first.length())
+				Sta2.alu_pc_mux.first = to_string(
+						stoi(Sta2.p1_ext.first) * 4 + stoi(Sta2.p1_alu.first));
+			//Sta2.ctrl_mux.first=generate_ct(Sta2.p1_ctrl.first);
+		}
+
 	}
 };
 #endif
