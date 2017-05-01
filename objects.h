@@ -1,41 +1,16 @@
 #ifndef OBJECTS_H
 #define OBJECTS_H
+#include "s1.h"
+#include "s2.h"
+#include "s3.h"
+#include "s4.h"
+#include "s5.h"
 #include <list>
 #include <fstream>
 #include<vector>
 using namespace std;
 int read_text = 0;
 bool started = false;
-template<class T, class T2>
-class my_pair
-{
-public:
-	T first;
-	T2 second;
-	my_pair()
-	{
-
-	}
-	my_pair(T f, T2 s)
-	{
-		first = f;
-		second = s;
-	}
-	bool operator==(const my_pair<T, T2> & p) const
-	{
-		return first == p.first;
-	}
-};
-struct Coor
-{
-	float x, y;
-	Coor(int x1 = 0, int y1 = 0)
-
-	{
-		x = x1;
-		y = y1;
-	}
-};
 vector<string> str;
 class ALU_INPUT
 {
@@ -348,547 +323,7 @@ public:
 	}
 
 };
-class Stage1
-{
-public:
-	my_pair<string, Coor> pc_mem;
-	my_pair<string, Coor> mem_p1;
-	my_pair<string, Coor> pc_alu;
-	my_pair<string, Coor> _4_alu;
-	my_pair<string, Coor> alu_p1;
-	my_pair<string, Coor> alu_mux;
-	Stage1()
-	{
-		pc_mem.second.x = 95;
-		pc_mem.second.y = 180;
-		mem_p1.second.x = 205;
-		mem_p1.second.y = 184;
-		pc_alu.second.x = 100;
-		pc_alu.second.y = 185;
-		_4_alu.second.x = 132;
-		_4_alu.second.y = 458;
-		alu_p1.second.x = 201;
-		alu_p1.second.y = 420;
-		alu_mux.second.x = 215;
-		alu_mux.second.y = 430;
-	}
-	void Draw()
-	{
-		DrawRoundRect(pc_mem.second.x, pc_mem.second.y, pc_mem.first.length() * 8, 16,
-				colors[LIGHT_BLUE], 5);
-		DrawRoundRect(mem_p1.second.x, mem_p1.second.y, mem_p1.first.length() * 5, 16,
-				colors[LIGHT_BLUE], 5);
-		DrawRoundRect(pc_alu.second.x, pc_alu.second.y, pc_alu.first.length() * 8, 16,
-				colors[LIGHT_BLUE], 5);
-		DrawRoundRect(_4_alu.second.x, _4_alu.second.y, _4_alu.first.length() * 8, 16,
-				colors[LIGHT_BLUE], 5);
-		DrawRoundRect(alu_p1.second.x, alu_p1.second.y, alu_p1.first.length() * 8, 16,
-				colors[LIGHT_BLUE], 5);
-		DrawRoundRect(alu_mux.second.x, alu_mux.second.y, alu_mux.first.length() * 8, 16,
-				colors[LIGHT_BLUE], 5);
 
-		DrawStringsmall(pc_mem.second.x + 1.5, pc_mem.second.y + 4, pc_mem.first,
-				colors[BLACK]);
-		DrawStringsmall(mem_p1.second.x + 1.5, mem_p1.second.y + 4, mem_p1.first,
-				colors[BLACK]);
-		DrawStringsmall(pc_alu.second.x + 1.5, pc_alu.second.y + 4, pc_alu.first,
-				colors[BLACK]);
-		DrawStringsmall(_4_alu.second.x + 1.5, _4_alu.second.y + 4, _4_alu.first,
-				colors[BLACK]);
-		DrawStringsmall(alu_p1.second.x + 1.5, alu_p1.second.y + 4, alu_p1.first,
-				colors[BLACK]);
-		DrawStringsmall(alu_mux.second.x + 1.5, alu_mux.second.y + 4,
-				alu_mux.first, colors[BLACK]);
-
-	}
-	void move()
-	{
-		if (pc_mem.second.x < 120)
-			pc_mem.second.x = pc_mem.second.x + .2;
-		if (pc_mem.second.x > 119 && mem_p1.second.x < 233)
-			mem_p1.second.x = mem_p1.second.x + .2;
-		if (pc_alu.second.y < 390)
-			pc_alu.second.y = pc_alu.second.y + 1.5;
-		if (pc_alu.second.y >= 389)
-		{
-			if (pc_alu.second.x < 155)
-				pc_alu.second.x = pc_alu.second.x + 1;
-		}
-		if (_4_alu.second.x < 150)
-			_4_alu.second.x = _4_alu.second.x + .2;
-		if (alu_p1.second.x < 245 && pc_alu.second.y >= 389
-				&& pc_alu.second.x >= 150)
-			alu_p1.second.x = alu_p1.second.x + .2;
-		if (alu_mux.second.y < 504 && alu_mux.second.x == 215
-				&& pc_alu.second.y >= 389 && pc_alu.second.x >= 150)
-		{
-			alu_mux.second.y = alu_mux.second.y + 1.5;
-		}
-		if (alu_mux.second.y >= 503 && alu_mux.second.x > 16
-				&& pc_alu.second.y >= 389 && pc_alu.second.x >= 150)
-			alu_mux.second.x = alu_mux.second.x - 1.5;
-		if (alu_mux.second.y >= 150 && alu_mux.second.x < 17
-				&& pc_alu.second.y >= 389 && pc_alu.second.x >= 150)
-			alu_mux.second.y = alu_mux.second.y - 1.5;
-		if (alu_mux.second.y < 151 && alu_mux.second.x < 35
-				&& pc_alu.second.y >= 389 && pc_alu.second.x >= 150)
-			alu_mux.second.x = alu_mux.second.x + 1.5;
-	}
-};
-class Stage2
-{
-public:
-	my_pair<string, Coor> p1_alu;
-	my_pair<string, Coor> sh_alu;
-	my_pair<string, Coor> alu_pc_mux;
-	my_pair<string, Coor> p1_p2;
-	my_pair<string, Coor> p1_ext1;
-	my_pair<string, Coor> p1_ext2;
-	my_pair<string, Coor> ext1_sh;
-	my_pair<string, Coor> ext2_p2;
-	my_pair<string, Coor> reg_p2_s1;
-	my_pair<string, Coor> reg_pc;
-	my_pair<string, Coor> reg_p2_s2;
-	my_pair<string, Coor> p1_ctrl;
-	my_pair<string, Coor> ctrl_mux;
-	my_pair<string, Coor> _0_mux;
-	my_pair<string, Coor> mux_p2;
-	my_pair<string, Coor> ctrl_p1;
-	int token_1;
-	my_pair<string, Coor> p1;
-	my_pair<string, Coor> p1_mux;
-	my_pair<string, Coor> p1_mux2;
-	my_pair<string, Coor> p1_ext;
-	my_pair<string, Coor> p1_reg;
-	Stage2()
-	{
-		token_1 = 0;
-		p1_p2.second.x = 340;
-		p1_p2.second.y = 428;
-		p1_ctrl.second.x = 285;
-		p1_ctrl.second.y = 270;
-		ctrl_mux.second.x = 325;
-		ctrl_mux.second.y = 515;
-		_0_mux.second.x = 428;
-		_0_mux.second.y = 496;
-		ctrl_p1.second.x = 330;
-		ctrl_p1.second.y = 520;
-		mux_p2.second.x = 490;
-		mux_p2.second.y = 500;
-		alu_pc_mux.second.x = 405;
-		alu_pc_mux.second.y = 435;
-		sh_alu.second.x = 330;
-		sh_alu.second.y = 407;
-		p1_alu.second.x = 285;
-		p1_alu.second.y = 453;
-
-		reg_p2_s2.second.x = 440;
-		reg_p2_s2.second.y = 170;
-		reg_p2_s1.second.x = 440;
-		reg_p2_s1.second.y = 230;
-		reg_pc.second.x = 438;
-		reg_pc.second.y = 240;
-
-		ext2_p2.second.x = 465;
-		ext2_p2.second.y = 45;
-		ext1_sh.second.x = 314;
-		ext1_sh.second.y = 116;
-		p1_ext1.second.x = 297;
-		p1_ext1.second.y = 87;
-		p1_ext1.second.x = 293;
-		p1_ext1.second.y = 82;
-		p1.second.x = 284;
-		p1.second.y = 178;
-		p1_mux.second.x = 285;
-		p1_mux.second.y = 178;
-		p1_mux2.second.x = 285;
-		p1_mux2.second.y = 178;
-		p1_ext.second.x = 285;
-		p1_ext.second.y = 178;
-		p1_reg.second.x = 285;
-		p1_reg.second.y = 271;
-
-	}
-	void Draw()
-	{
-		DrawRoundRect(p1_alu.second.x, p1_alu.second.y, 22, 16,
-				colors[LIGHT_BLUE], 5);
-		DrawRoundRect(sh_alu.second.x, sh_alu.second.y, 22, 16,
-				colors[LIGHT_BLUE], 5);
-		DrawRoundRect(alu_pc_mux.second.x, alu_pc_mux.second.y, 22, 16,
-				colors[LIGHT_BLUE], 5);
-
-		DrawRoundRect(p1_p2.second.x, p1_p2.second.y, 22, 16,
-				colors[LIGHT_BLUE], 5);
-
-		DrawRoundRect(p1_ext1.second.x, p1_ext1.second.y, 22, 16,
-				colors[LIGHT_BLUE], 5);
-		DrawRoundRect(p1_ext2.second.x, p1_ext2.second.y, 22, 16,
-				colors[LIGHT_BLUE], 5);
-		DrawRoundRect(ext1_sh.second.x, ext1_sh.second.y, 22, 16,
-				colors[LIGHT_BLUE], 5);
-		DrawRoundRect(ext2_p2.second.x, ext2_p2.second.y, 22, 16,
-				colors[LIGHT_BLUE], 5);
-
-		DrawRoundRect(reg_p2_s1.second.x, reg_p2_s1.second.y, 22, 16,
-				colors[LIGHT_BLUE], 5);
-
-		DrawRoundRect(reg_pc.second.x, reg_pc.second.y, 22, 16,
-				colors[LIGHT_BLUE], 5);
-
-		DrawRoundRect(reg_p2_s2.second.x, reg_p2_s2.second.y, 22, 16,
-				colors[LIGHT_BLUE], 5);
-		DrawRoundRect(p1_ctrl.second.x, p1_ctrl.second.y, 22, 16,
-				colors[LIGHT_BLUE], 5);
-
-		DrawRoundRect(ctrl_mux.second.x, ctrl_mux.second.y, 22, 16,
-				colors[LIGHT_BLUE], 5);
-		DrawRoundRect(_0_mux.second.x, _0_mux.second.y, 22, 16,
-				colors[LIGHT_BLUE], 5);
-
-		DrawRoundRect(mux_p2.second.x, mux_p2.second.y, 22, 16,
-				colors[LIGHT_BLUE], 5);
-		DrawRoundRect(ctrl_p1.second.x, ctrl_p1.second.y, 22, 16,
-				colors[LIGHT_BLUE], 5);
-		DrawRoundRect(p1.second.x, p1.second.y, 22, 16, colors[LIGHT_BLUE], 5);
-		DrawRoundRect(p1_mux.second.x, p1_mux.second.y, 22, 16,
-				colors[LIGHT_BLUE], 5);
-		DrawRoundRect(p1_mux2.second.x, p1_mux2.second.y, 22, 16,
-				colors[LIGHT_BLUE], 5);
-		DrawRoundRect(p1_ext.second.x, p1_ext.second.y, 22, 16,
-				colors[LIGHT_BLUE], 5);
-		DrawRoundRect(p1_reg.second.x, p1_reg.second.y, 22, 16,
-				colors[LIGHT_BLUE], 5);
-
-	}
-	void move()
-	{
-		if (p1_alu.second.x < 345)
-			p1_alu.second.x += 0.5;
-		if (p1_alu.second.x > 335 && p1_p2.second.y > 369)
-			p1_p2.second.y -= 1.0;
-		else if (p1_alu.second.x > 335 && p1_p2.second.x < 500)
-			p1_p2.second.x += 1.0;
-		if (sh_alu.second.x < 345 && ext1_sh.second.y > 398)
-			sh_alu.second.x += 0.5;
-		if (alu_pc_mux.second.x < 410 && p1_alu.second.x == 345
-				&& alu_pc_mux.second.y < 640 && alu_pc_mux.second.x > 300
-				&& sh_alu.second.x > 343)
-			alu_pc_mux.second.x += 0.5;
-		else if (alu_pc_mux.second.y < 640 && p1_alu.second.x == 345
-				&& alu_pc_mux.second.x > 15 && token_1 == 0
-				&& sh_alu.second.x > 343)
-			alu_pc_mux.second.y += 2;
-		else if (alu_pc_mux.second.y == 641 && alu_pc_mux.second.x > 10)
-			alu_pc_mux.second.x -= 3;
-		else if (alu_pc_mux.second.y > 220 && alu_pc_mux.second.x < 15)
-			alu_pc_mux.second.y -= 3;
-		if (alu_pc_mux.second.y < 223 && alu_pc_mux.second.x < 40)
-		{
-			alu_pc_mux.second.x++;
-			token_1 = 1;
-		}
-		if (alu_pc_mux.second.y > 500 && _0_mux.second.x < 460
-				&& _0_mux.second.y == 496)
-			_0_mux.second.x++;
-		if (_0_mux.second.x > 455 && mux_p2.second.x < 515)
-			mux_p2.second.x++;
-		if (ctrl_mux.second.x < 460 && ctrl_mux.second.y == 515)
-			ctrl_mux.second.x++;
-		if (ctrl_p1.second.y < 530 && ctrl_p1.second.x == 330)
-			ctrl_p1.second.y++;
-		if (ctrl_p1.second.y > 527 && ctrl_p1.second.x > 225)
-			ctrl_p1.second.x = ctrl_p1.second.x - 2;
-		if (ctrl_p1.second.y > 54 && ctrl_p1.second.x < 227
-				&& ctrl_p1.second.x > 222)
-			ctrl_p1.second.y = ctrl_p1.second.y - 2;
-		if (ctrl_p1.second.y < 57 && ctrl_p1.second.x < 253
-				&& ctrl_p1.second.x > 222)
-			ctrl_p1.second.x = ctrl_p1.second.x + 2;
-		if (p1.second.x < 330)
-			p1.second.x = p1.second.x + 1;
-		if (p1.second.x > 283 && p1_mux.second.y < 208)
-			p1_mux.second.y = p1_mux.second.y + 1;
-		if (p1_mux.second.x < 303 && p1_mux.second.y > 206)
-			p1_mux.second.x = p1_mux.second.x + 1;
-		if (p1.second.x > 283 && p1_mux2.second.y < 246)
-			p1_mux2.second.y = p1_mux2.second.y + 1;
-		if (p1_mux2.second.x < 303 && p1_mux2.second.y > 243)
-			p1_mux2.second.x = p1_mux2.second.x + 1;
-		if (p1_mux2.second.y > 243 && p1_ctrl.second.y < 500)
-			p1_ctrl.second.y++;
-		if (p1_mux2.second.y > 243 && p1_reg.second.x < 330)
-			p1_reg.second.x++;
-		if (p1_reg.second.x > 325 && reg_p2_s2.second.x < 520)
-			reg_p2_s2.second.x++;
-		if (p1_reg.second.x > 325 && reg_p2_s1.second.x < 520)
-			reg_p2_s1.second.x++;
-		if (p1_reg.second.x > 325 && reg_pc.second.y < 658
-				&& reg_pc.second.x > 24 && reg_pc.second.y > 220)
-			reg_pc.second.y += 3;
-		if (reg_pc.second.x > 20 && reg_pc.second.y > 655)
-			reg_pc.second.x -= 3;
-		if (reg_pc.second.x < 24 && reg_pc.second.y > 180)
-			reg_pc.second.y -= 3;
-		if (reg_pc.second.x < 35 && reg_pc.second.y < 182)
-			reg_pc.second.x += 3;
-		if (p1.second.x > 286 && p1_ext.second.y > 85 && p1_ext.second.x == 285)
-			p1_ext.second.y = p1_ext.second.y - 1;
-		if (p1_ext.second.y < 86 && p1_ext.second.x < 310)
-			p1_ext.second.x = p1_ext.second.x + 1;
-		if (p1_ext.second.y < 86 && p1_ext1.second.y > 37)
-			p1_ext1.second.y = p1_ext1.second.y - 1;
-		if (p1_ext1.second.x < 410 && p1_ext1.second.y < 39)
-			p1_ext1.second.x = p1_ext1.second.x + 1;
-		if (p1_ext1.second.x > 408 && ext2_p2.second.y < 195)
-			ext2_p2.second.y = ext2_p2.second.y + 1;
-		if (ext2_p2.second.x < 517 && ext2_p2.second.y > 193)
-			ext2_p2.second.x = ext2_p2.second.x + 1;
-		if (p1_ext.second.x > 308 && ext1_sh.second.y < 400)
-			ext1_sh.second.y = ext1_sh.second.y + 2;
-	}
-};
-class Stage4
-{
-public:
-	my_pair<string, Coor> p4_mem;
-	my_pair<string, Coor> mem_conv;
-	my_pair<string, Coor> conv_p5;
-	my_pair<string, Coor> p4_p5up;
-	my_pair<string, Coor> p4_p5down;
-	my_pair<string, Coor> p4_conv;
-	my_pair<string, Coor> conv_mem;
-	my_pair<string, Coor> p4_mem1;
-	my_pair<string, Coor> p4_mem2;
-	my_pair<string, Coor> p4_mux1;
-	my_pair<string, Coor> p4_mux2;
-	my_pair<string, Coor> p4_p5mid;
-	my_pair<string, Coor> p4_fwdctrl;
-	my_pair<string, Coor> p4_fwddata;
-	Stage4()
-	{
-		p4_mem.second.x = 882;
-		p4_mem.second.y = 244;
-		mem_conv.second.x = 1040;
-		mem_conv.second.y = 195;
-		conv_p5.second.x = 1080;
-		conv_p5.second.y = 195;
-		p4_p5up.second.x = 882;
-		p4_p5up.second.y = 422;
-		p4_p5down.second.x = 882;
-		p4_p5down.second.y = 54;
-		p4_conv.second.x = 882;
-		p4_conv.second.y = 123;
-		conv_mem.second.x = 925;
-		conv_mem.second.y = 123;
-		p4_mem1.second.x = 970;
-		p4_mem1.second.y = 422;
-		p4_mem2.second.x = 992;
-		p4_mem2.second.y = 422;
-		p4_p5mid.second.x = 935;
-		p4_p5mid.second.y = 88;
-		p4_fwdctrl.second.x = 882;
-		p4_fwdctrl.second.y = 420;
-		p4_fwddata.second.x = 900;
-		p4_fwddata.second.y = 56;
-		p4_mux1.second.x = 925;
-		p4_mux1.second.y = 240;
-		p4_mux2.second.x = 584.5;
-		p4_mux2.second.y = 108;
-	}
-	void Draw()
-	{
-		DrawRoundRect(p4_mem.second.x, p4_mem.second.y, 22, 16,
-				colors[LIGHT_BLUE], 5);
-		DrawRoundRect(mem_conv.second.x, mem_conv.second.y, 22, 16,
-				colors[LIGHT_BLUE], 5);
-		DrawRoundRect(conv_p5.second.x, conv_p5.second.y, 22, 16,
-				colors[LIGHT_BLUE], 5);
-		DrawRoundRect(p4_p5up.second.x, p4_p5up.second.y, 22, 16,
-				colors[LIGHT_BLUE], 5);
-		DrawRoundRect(p4_p5down.second.x, p4_p5down.second.y, 22, 16,
-				colors[LIGHT_BLUE], 5);
-		DrawRoundRect(p4_conv.second.x, p4_conv.second.y, 22, 16,
-				colors[LIGHT_BLUE], 5);
-		DrawRoundRect(conv_mem.second.x, conv_mem.second.y, 22, 16,
-				colors[LIGHT_BLUE], 5);
-		DrawRoundRect(p4_mem1.second.x, p4_mem1.second.y, 22, 16,
-				colors[LIGHT_BLUE], 5);
-		DrawRoundRect(p4_mem2.second.x, p4_mem2.second.y, 22, 16,
-				colors[LIGHT_BLUE], 5);
-		DrawRoundRect(p4_p5mid.second.x, p4_p5mid.second.y, 22, 16,
-				colors[LIGHT_BLUE], 5);
-		DrawRoundRect(p4_fwdctrl.second.x, p4_fwdctrl.second.y, 22, 16,
-				colors[LIGHT_BLUE], 5);
-		DrawRoundRect(p4_fwddata.second.x, p4_fwddata.second.y, 22, 16,
-				colors[LIGHT_BLUE], 5);
-		DrawRoundRect(p4_mux1.second.x, p4_mux1.second.y, 22, 16,
-				colors[LIGHT_BLUE], 5);
-		DrawRoundRect(p4_mux2.second.x, p4_mux2.second.y, 22, 16,
-				colors[LIGHT_BLUE], 5);
-
-	}
-	void move()
-	{
-		if (p4_mem.second.x < 950)
-			p4_mem.second.x = p4_mem.second.x + 0.4;
-		if (mem_conv.second.x < 1050)
-		{
-
-			mem_conv.second.x = mem_conv.second.x + 0.2;
-		}
-		else if (conv_p5.second.x < 1102)
-		{
-			conv_p5.second.x = conv_p5.second.x + 0.2;
-		}
-		if (p4_conv.second.x < 895)
-			p4_conv.second.x = p4_conv.second.x + 0.2;
-		else if (conv_mem.second.x < 950)
-			conv_mem.second.x = conv_mem.second.x + 0.2;
-		if (p4_p5down.second.x < 1100)
-			p4_p5down.second.x = p4_p5down.second.x + 0.5;
-		if (p4_p5down.second.x > 910 && p4_fwddata.second.y > 21)
-			p4_fwddata.second.y = p4_fwddata.second.y - 0.5;
-		if (p4_fwddata.second.y < 23 && p4_fwddata.second.x > 765)
-			p4_fwddata.second.x = p4_fwddata.second.x - 0.5;
-		if (p4_mem.second.x > 920)
-		{
-			if (p4_mux1.second.y > 4 && p4_mux1.second.x == 925)
-				p4_mux1.second.y = p4_mux1.second.y - 1.5;
-			if (p4_mux1.second.y < 6 && p4_mux1.second.x > 585)
-				p4_mux1.second.x = p4_mux1.second.x - 1.5;
-
-		}
-		if (p4_mux1.second.y == 108.5 && p4_mux2.second.y < 330)
-			p4_mux2.second.y++;
-		if (p4_mux2.second.y > 327 && p4_mux2.second.x < 630)
-			p4_mux2.second.x++;
-		if (p4_mux1.second.y > 108 && p4_mux1.second.x < 630)
-			p4_mux1.second.x++;
-		if (p4_mux1.second.y < 90 && p4_p5mid.second.x < 1100)
-			p4_p5mid.second.x = p4_p5mid.second.x + 1.5;
-		if (p4_p5up.second.x < 1100)
-			p4_p5up.second.x = p4_p5up.second.x + 1;
-		if (p4_p5up.second.x > 880 && p4_fwdctrl.second.y > 20)
-			p4_fwdctrl.second.y = p4_fwdctrl.second.y - 1;
-		if (p4_fwdctrl.second.x > 770 && p4_fwdctrl.second.y < 23)
-			p4_fwdctrl.second.x = p4_fwdctrl.second.x - 1;
-		if (p4_p5up.second.x > 960 && p4_mem1.second.y > 285)
-			p4_mem1.second.y = p4_mem1.second.y - 1;
-		if (p4_p5up.second.x > 980 && p4_mem2.second.y > 285)
-			p4_mem2.second.y = p4_mem2.second.y - 1;
-		if (p4_mux1.second.y < 118 && p4_mux1.second.x == 584.5)
-			p4_mux1.second.y++;
-	}
-
-};
-class Stage5
-{
-public:
-	my_pair<string, Coor> ctrl_mux;
-	my_pair<string, Coor> mux_mux;
-	my_pair<string, Coor> ctrl_fwd;
-	my_pair<string, Coor> mem_mux;
-	my_pair<string, Coor> alu_mux;
-	my_pair<string, Coor> data_fwd;
-	my_pair<string, Coor> mux_mux2;
-	my_pair<string, Coor> mux_reg;
-	int token;
-	Stage5()
-	{
-		ctrl_mux.second.x = 1130;
-		ctrl_mux.second.y = 419;
-		ctrl_fwd.second.x = 1131;
-		ctrl_fwd.second.y = 419;
-		mem_mux.second.x = 1130;
-		mem_mux.second.y = 207;
-		alu_mux.second.x = 1130;
-		alu_mux.second.y = 83;
-		data_fwd.second.x = 1130;
-		data_fwd.second.y = 65;
-		mux_mux.second.x = 1181;
-		mux_mux.second.y = 199;
-		mux_reg.second.x = 580;
-		mux_reg.second.y = 8;
-		mux_mux2.second.x = 580;
-		mux_mux2.second.y = 8;
-		token = 0;
-
-	}
-	void Draw()
-	{
-		DrawRoundRect(ctrl_mux.second.x, ctrl_mux.second.y, 18, 12,
-				colors[LIGHT_BLUE], 5);
-		DrawRoundRect(mux_mux.second.x, mux_mux.second.y, 18, 12,
-				colors[LIGHT_BLUE], 5);
-		DrawRoundRect(ctrl_fwd.second.x, ctrl_fwd.second.y, 18, 12,
-				colors[LIGHT_BLUE], 5);
-		DrawRoundRect(mem_mux.second.x, mem_mux.second.y, 18, 12,
-				colors[LIGHT_BLUE], 5);
-		DrawRoundRect(alu_mux.second.x, alu_mux.second.y, 18, 12,
-				colors[LIGHT_BLUE], 5);
-		DrawRoundRect(data_fwd.second.x, data_fwd.second.y, 18, 12,
-				colors[LIGHT_BLUE], 5);
-		if (token == 1)
-		{
-			DrawRoundRect(mux_mux2.second.x, mux_mux2.second.y, 18, 12,
-					colors[LIGHT_BLUE], 5);
-			DrawRoundRect(mux_reg.second.x, mux_reg.second.y, 18, 12,
-					colors[LIGHT_BLUE], 5);
-		}
-	}
-	void move()
-	{
-		if (mem_mux.second.x < 1145)
-			mem_mux.second.x = mem_mux.second.x + 0.2;
-		if (alu_mux.second.x > 1145 && alu_mux.second.y == 207)
-			alu_mux.second.x++;
-		if (alu_mux.second.x < 1138 && alu_mux.second.y < 180)
-			alu_mux.second.y++;
-		if (alu_mux.second.x < 1150 && alu_mux.second.y > 178)
-			alu_mux.second.x++;
-		if (data_fwd.second.x < 1140 && data_fwd.second.y > 20)
-			data_fwd.second.x++;
-		if (data_fwd.second.y > 10)
-			data_fwd.second.y--;
-		if (data_fwd.second.x > 760 && data_fwd.second.y < 15)
-			data_fwd.second.x--;
-		if (ctrl_mux.second.x < 1160 && ctrl_mux.second.y > 400)
-			ctrl_mux.second.x++;
-		if (ctrl_mux.second.y > 235 && ctrl_mux.second.x > 1155)
-			ctrl_mux.second.y--;
-		if (ctrl_mux.second.x > 1140 && ctrl_fwd.second.y > 12)
-			ctrl_fwd.second.y = ctrl_fwd.second.y - 2;
-		if (ctrl_fwd.second.x > 760 && ctrl_fwd.second.y < 15)
-			ctrl_fwd.second.x = ctrl_fwd.second.x - 2;
-		if (mux_mux.second.x < 1190 && mux_mux.second.y > 190)
-			mux_mux.second.x++;
-		if (mux_mux.second.x > 1188 && mux_mux.second.y > 6)
-			mux_mux.second.y = mux_mux.second.y - 2;
-
-		if (mux_mux.second.x > 580 && mux_mux.second.y < 8)
-			mux_mux.second.x = mux_mux.second.x - 2;
-
-		if (mux_mux.second.x > 580 && mux_mux.second.x < 585)
-			token = 1;
-		if (mux_mux.second.x < 585 && mux_mux.second.y < 150)
-			mux_mux.second.y = mux_mux.second.y + 2;
-		if (mux_mux.second.x < 630 && mux_mux.second.y == 151)
-			mux_mux.second.x = mux_mux.second.x + 2;
-
-		if (token == 1 && mux_mux2.second.x < 585 && mux_mux2.second.y < 370)
-			mux_mux2.second.y = mux_mux2.second.y + 2;
-		if (token == 1 && mux_mux2.second.x < 630 && mux_mux2.second.y > 366)
-			mux_mux2.second.x = mux_mux2.second.x + 2;
-
-		if (token == 1 && mux_reg.second.x > 290 && mux_reg.second.y < 10)
-			mux_reg.second.x = mux_reg.second.x - 2;
-		if (token == 1 && mux_reg.second.x < 295 && mux_reg.second.y < 137)
-			mux_reg.second.y = mux_reg.second.y + 2;
-		if (token == 1 && mux_reg.second.x < 335 && mux_reg.second.y > 133)
-			mux_reg.second.x = mux_reg.second.x + 2;
-	}
-};
 class Board
 {
 public:
@@ -899,6 +334,7 @@ public:
 	Stage2 Sta2;
 	Stage4 Sta4;
 	Stage5 Sta5;
+	Stage3 Sta3;
 	Mem I_Mem, Data_Mem;
 	ALU A1, A2, A3;
 	MUX m1, m2, m3, m4, m5, m6, m7;
@@ -935,31 +371,48 @@ public:
 	{
 
 	}
-	void place_instructions_s1()
+	void ins_s1()
 	{
 		counter++;
-		counter %= 300;
-		switch(counter )
+		counter %= 781;
+		switch (counter)
 		{
 		case 1:
 			Sta1.pc_mem.first = to_string(p.index);
-			Sta1._4_alu.first="4";
-			Sta1.pc_alu.first=to_string(p.index);
+			Sta1._4_alu.first = "4";
+			Sta1.pc_alu.first = to_string(p.index);
 			break;
 		case 130:
-			Sta1.mem_p1.first = instructoins[p.index];
+			Sta1.mem_p1.first = instructoins[p.index/4];
 			break;
 		case 190:
-			Sta1.alu_mux.first=to_string(p.index+4);
-			Sta1.alu_p1.first=to_string(p.index+4);
+			Sta1.alu_mux.first = to_string(p.index + 4);
+			Sta1.alu_p1.first = to_string(p.index + 4);
+			break;
+		case 780:
+			p.index += 4;
+			p.index %= instructoins.size()*4;
+			Sta1.ReInit();
+		}
+	}
+	void ins_s2()
+	{
+		switch (counter)
+		{
+		case 779:
+			Sta2.ReInit();
+			Sta2.p1_alu.first = Sta1.alu_p1.first;
+
 			break;
 		}
+
 	}
 	void draw_board()
 	{
 		if (started)
 		{
-			place_instructions_s1();
+			ins_s1();
+			ins_s2();
 		}
 		m7.draw_unit();
 		m6.draw_unit();
@@ -1023,7 +476,6 @@ public:
 		DrawLine(1197, 8, 300, 8, 1, colors[BLACK]);
 		DrawLine(596, 7, 596, 370, 1, colors[BLACK]);
 		DrawLine(596, 370, 631, 370, 1, colors[BLACK]);
-
 		DrawLine(552, 58, 660, 58, 1, colors[PURPLE]);
 		DrawLine(552, 48, 660, 48, 1, colors[PURPLE]);
 		DrawLine(552, 414, 631, 414, 1, colors[216]);
@@ -1033,7 +485,6 @@ public:
 		DrawLine(600, 117, 631, 117, 1, colors[216]);
 		DrawLine(596, 156, 630, 156, 1, colors[BLACK]);
 		DrawRoundRect(566, 76, 20, 80, colors[216], 15);
-
 		DrawString(570, 85, "0", colors[WHITE]);
 		DrawString(570, 120, "1", colors[WHITE]);
 		DrawLine(552, 127, 566, 127, 1, colors[216]);
@@ -1140,12 +591,14 @@ public:
 		DrawLine(237, 55, 252, 55, 1, colors[BLACK]);
 		Sta1.Draw();
 		Sta2.Draw();
+		Sta3.Draw();
 		Sta4.Draw();
 		Sta5.Draw();
 		if (started)
 		{
 			Sta1.move();
 			Sta2.move();
+			Sta3.move();
 			Sta4.move();
 			Sta5.move();
 		}
