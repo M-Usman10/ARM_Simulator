@@ -116,11 +116,100 @@ public:
 		this->y = y;
 		this->color = color;
 	}
-	string generate_ct(string & str)
+	vector<string> generate_ct(string & str)
 	{
-        string res;
-        //if(str.substr(0,3)=="E28")
-        return res;
+		string r1;
+		string r2;
+		string r3;
+		if (str.substr(0, 3) == "E28")
+		{
+			r1 = "1";
+			r2 = "00110100001";
+			r3 = "000";
+		}
+		else if (str.substr(0, 3) == "E08")
+		{
+			r1 = "1";
+			r2 = "00010100001";
+			r3 = "000";
+		}
+		else if (str.substr(0, 3) == "E24")
+		{
+			r1 = "1";
+			r2 = "00111100001";
+			r3 = "000";
+		}
+		else if (str.substr(0, 3) == "E04")
+		{
+			r1 = "1";
+			r2 = "00011100001";
+			r3 = "000";
+		}
+		else if (str.substr(0, 3) == "E3A")
+		{
+			r1 = "1";
+			r2 = "00100100001";
+			if (str[3] == 'F')
+				r3 = "001";
+			else
+				r3 = "000";
+		}
+		else if (str.substr(0, 3) == "E1A")
+		{
+			r1 = "1";
+			r2 = "00000100001";
+			if (str[3] == 'F')
+				r3 = "001";
+			else
+				r3 = "000";
+		}
+		else if (str.substr(0, 3) == "CA0")
+		{
+			r1 = "1";
+			r2 = "00010100001";
+			r3 = "000";
+		}
+		else if (str.substr(0, 3) == "A10" || str.substr(0, 3) == "D10")
+		{
+			r1 = "1";
+			r2 = "00110100001";
+			r3 = "000";
+		}
+		else if (str.substr(0, 3) == "A00" || str.substr(0, 3) == "D00")
+		{
+			r1 = "1";
+			r2 = "00010100001";
+			r3 = "000";
+		}
+		else if (str.substr(0, 3) == "E58")
+		{
+			r1 = "1";
+			r2 = "00110101011";
+			r3 = "000";
+		}
+		else if (str.substr(0, 3) == "E59")
+		{
+			r1 = "0";
+			r2 = "001101001x0";
+			r3 = "000";
+		}
+		else if (str.substr(0, 2) == "BE")
+		{
+			r1 = "0";
+			r2 = "00000000000";
+			r3 = "100";
+		}
+		else if (str.substr(0, 2) == "BA")
+		{
+			r1 = "0";
+			r2 = "11000100001";
+			r3 = "010";
+		}
+		vector<string> res;
+		res.push_back(r1);
+		res.push_back(r2);
+		res.push_back(r3);
+		return res;
 	}
 	string get(const string & str)
 	{
@@ -151,21 +240,21 @@ public:
 		}
 		else if (str.substr(0, 3) == "CMP")
 		{
-			res ="CA00";
+			res = "CA00";
 		}
 		else if (str.substr(0, 3) == "AND")
 		{
 			if (str[10] > 47 && str[10] < 59)
-            res="A100";
+				res = "A100";
 			else
 				"A000";
 		}
 		else if (str.substr(0, 2) == "OR")
 		{
 			if (str[10] > 47 && str[10] < 59)
-		            res="D100";
-					else
-						"D000";
+				res = "D100";
+			else
+				"D000";
 		}
 		else if (str.substr(0, 3) == "LDR")
 		{
@@ -179,7 +268,7 @@ public:
 		}
 		else if (str.substr(0, 3) == "BEQ")
 		{
-             res="BE00";
+			res = "BE00";
 		}
 		else if (str.substr(0, 2) == "BL")
 		{
@@ -519,6 +608,7 @@ public:
 		{
 			ins_s1();
 			ins_s2();
+			ins_s3();
 		}
 		m7.draw_unit();
 		m6.draw_unit();
@@ -695,6 +785,16 @@ public:
 		DrawLine(340, 535, 238, 535, 1, colors[BLACK]);
 		DrawLine(238, 535, 238, 55, 1, colors[BLACK]);
 		DrawLine(237, 55, 252, 55, 1, colors[BLACK]);
+		DrawLine(320, 496, 325, 496, 1, colors[PURPLE]);
+		DrawLine(325, 496, 325, 466, 1, colors[PURPLE]);
+		DrawLine(325, 466, 300, 466, 1, colors[PURPLE]);
+		DrawLine(300, 466, 300, 388, 1, colors[PURPLE]);
+		DrawLine(300, 388, 308, 388, 1, colors[PURPLE]);
+		DrawLine(308, 388, 308, 267, 1, colors[PURPLE]);
+		DrawLine(320, 510, 450, 510, 1, colors[PURPLE]);
+		DrawLine(450, 510, 450, 600, 1, colors[PURPLE]);
+		DrawLine(450, 600, 733, 600, 1, colors[PURPLE]);
+
 		Sta1.Draw();
 		Sta2.Draw();
 		Sta3.Draw();
@@ -803,6 +903,7 @@ public:
 
 			break;
 		case 140:
+			Sta2.p1_p2.first = Sta2.p1_alu.first;
 			Sta2.ext1_sh.first = Sta2.p1_ext.first;
 			if (Sta2.p1_reg.first.length())
 			{
@@ -820,9 +921,34 @@ public:
 			if (Sta2.p1_ext.first.length())
 				Sta2.alu_pc_mux.first = to_string(
 						stoi(Sta2.p1_ext.first) * 4 + stoi(Sta2.p1_alu.first));
-			//Sta2.ctrl_mux.first=generate_ct(Sta2.p1_ctrl.first);
+			Sta2.ctrl_mux.first = c.generate_ct(Sta2.p1_ctrl.first)[1];
+			Sta2.ctrl_mux1.first = c.generate_ct(Sta2.p1_ctrl.first)[0];
+			if (Sta2.ctrl_mux.first.length())
+				Sta2._0_mux.first = "0";
+			break;
+		case 430:
+			Sta2.mux_p2.first = Sta2.ctrl_mux.first;
+			if (c.generate_ct(Sta2.p1_ctrl.first)[0] == "0")
+				Sta2.reg_p2_s2.first = r.get(Sta2.p1_mux.first);
+			else if(c.generate_ct(Sta2.p1_ctrl.first)[0] == "1")
+				Sta2.reg_p2_s2.first = r.get(Sta2.p1_mux2.first);
 		}
 
+	}
+	void ins_s3()
+	{
+		static bool _1st=false;
+        switch(counter)
+        {
+           case 778:
+        	   if(_1st)
+        	   {
+                  Sta3.alu_op.first=Sta2.mux_p2.first.substr(4,3);
+                  Sta3.p3_p4.first=Sta2.mux_p2.first;
+                  Sta3.p3_selector1.first=Sta2.mux_p2.first.substr(1,2);
+        	   }
+              _1st=true;
+        }
 	}
 };
 #endif
